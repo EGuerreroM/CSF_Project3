@@ -18,8 +18,13 @@ public class CategoryController {
     }
 
     @GetMapping("/show")
-    public List<Category> showCategories(){
+    public List<Category> showAllCategories(){
         return categoryServiceImpl.getAllCategories();
+    }
+
+    @GetMapping("/show/active")
+    public List<Category> showActiveCategories(){
+        return categoryServiceImpl.getActiveCategories("Active");
     }
 
 //    @GetMapping("/show")
@@ -32,5 +37,16 @@ public class CategoryController {
     @ResponseBody
     public Category saveCategory(@ModelAttribute Category category){
         return categoryServiceImpl.saveCategory(category);
+    }
+
+    @PutMapping("/update/{id}")
+    public Category updateCategory(
+            @PathVariable(value = "id") Long categoryId,
+            @ModelAttribute Category category)
+    {
+        Category foundCategory = categoryServiceImpl.getCategoryById(categoryId);
+        foundCategory.setName(category.getName());
+        foundCategory.setStatus(category.getStatus());
+        return categoryServiceImpl.saveCategory(foundCategory);
     }
 }

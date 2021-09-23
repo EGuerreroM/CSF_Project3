@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService{
 
     private CategoryRepository categoryRepository;
 
@@ -20,6 +20,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    public List<Category> getActiveCategories(String status){
+        return categoryRepository.findCategoryByStatusEquals(status);
     }
 
     @Override
