@@ -9,22 +9,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
-    private PaymentTypeServiceImpl paymentTypeService;
+    private PaymentTypeServiceImpl paymentTypeServiceImpl;
 
     public PaymentController(PaymentTypeServiceImpl paymentTypeService) {
         super();
-        this.paymentTypeService = paymentTypeService;
+        this.paymentTypeServiceImpl = paymentTypeService;
     }
 
     @GetMapping("/show")
     public List<PaymentType> showAllPayments(){
-        return paymentTypeService.getAllPaymentTypes();
+        return paymentTypeServiceImpl.getAllPaymentTypes();
     }
 
     @PostMapping("/save")
     @ResponseBody
     public PaymentType savePayment(@ModelAttribute PaymentType paymentType){
-        return paymentTypeService.savePaymentType(paymentType);
+        return paymentTypeServiceImpl.savePaymentType(paymentType);
     }
 
     @PutMapping("/update/{id}")
@@ -32,9 +32,9 @@ public class PaymentController {
             @PathVariable(value = "id") Long paymentId,
             @ModelAttribute PaymentType paymentType
     ){
-        PaymentType foundPayment = paymentTypeService.getPaymentTypeById(paymentId);
+        PaymentType foundPayment = paymentTypeServiceImpl.getPaymentTypeById(paymentId);
         foundPayment.setType(paymentType.getType());
 
-        return paymentTypeService.savePaymentType(foundPayment);
+        return paymentTypeServiceImpl.savePaymentType(foundPayment);
     }
 }

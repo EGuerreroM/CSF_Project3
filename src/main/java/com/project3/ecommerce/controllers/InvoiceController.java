@@ -1,30 +1,33 @@
 package com.project3.ecommerce.controllers;
 
 import com.project3.ecommerce.models.*;
-import com.project3.ecommerce.services.implementations.GuestServiceImpl;
-import com.project3.ecommerce.services.implementations.InvoiceDetailsServiceImpl;
-import com.project3.ecommerce.services.implementations.InvoiceServiceImpl;
-import com.project3.ecommerce.services.implementations.PaymentTypeServiceImpl;
+import com.project3.ecommerce.services.implementations.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("/cart")
 public class InvoiceController {
+
+    List<Product> productList = new ArrayList();
 
     private InvoiceServiceImpl invoiceServiceImpl;
     private InvoiceDetailsServiceImpl invoiceDetailsServiceImpl;
     private GuestServiceImpl guestServiceImpl;
     private PaymentTypeServiceImpl paymentTypeServiceImpl;
+    private ProductServiceImpl productServiceImpl;
     private Date date = new Date();
 
-    public InvoiceController(InvoiceServiceImpl invoiceServiceImpl, GuestServiceImpl guestServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl) {
+    public InvoiceController(List<Product> productList, InvoiceServiceImpl invoiceServiceImpl, InvoiceDetailsServiceImpl invoiceDetailsServiceImpl, GuestServiceImpl guestServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl) {
         super();
         this.invoiceServiceImpl = invoiceServiceImpl;
+        this.invoiceDetailsServiceImpl = invoiceDetailsServiceImpl;
         this.guestServiceImpl = guestServiceImpl;
         this.paymentTypeServiceImpl = paymentTypeServiceImpl;
+        this.productServiceImpl = productServiceImpl;
     }
 
     @GetMapping("/show")
@@ -34,19 +37,58 @@ public class InvoiceController {
 
     @PostMapping("/save")
     @ResponseBody
-    public void saveInvoice(){
+    public void saveInvoice() {
+
+        List<InvoiceDetails> invoiceDetailsList = new ArrayList<>();
+
         Guest guest = guestServiceImpl.getGuestById(1L);
         PaymentType paymentType = paymentTypeServiceImpl.getPaymentTypeById(1L);
-        //InvoiceDetails invoiceDetails = invoiceDetailsServiceImpl.getInvoiceDetailsById(1L);
+        Product product = productServiceImpl.getProductById(1L);
+        int cantidad = 1;
+        int posicion = 0;
 
         Invoice invoice = new Invoice();
         invoice.setDate(this.date);
-        invoice.setStatus("Not delivered");
-        //invoice.setTotalOrder(invoiceDetails.getSubTotal()+(invoiceDetails.getSubTotal()*0.15));
+        invoice.setStatus("DELIVERED");
         invoice.setTotalOrder(210.12);
         invoice.setGuest(guest);
         invoice.setPaymentType(paymentType);
+        Invoice invoiceAdd = invoiceServiceImpl.saveInvoice(invoice);
 
-        invoiceServiceImpl.saveInvoice(invoice);
+        //variables de interfaz
+        int idp = 1;
+
+        if(invoiceDetailsList.size()>0){
+            for (int i=0; i<invoiceDetailsList.size(); i++){
+                if(idp==invoiceDetailsList.get(i).getProduct().getId()){ //id producto que capture en interfaz , igual al product.getid
+                    posicion=i;
+                }
+            }
+            if(idp==invoiceDetailsList.get(posicion).getProduct().getId()){
+                cantidad=invoiceDetailsList.get(posicion).getQuantity()+cantidad;
+                double subTotal = invoiceDetailsList.get(posicion).getProduct().getPrice()*cantidad;
+                invoiceDetailsList.get(posicion).setQuantity(cantidad);
+                invoiceDetailsList.get(posicion).setSubTotal(subTotal);
+            }
+            else {
+                InvoiceDetails invoiceDetails = new InvoiceDetails();
+                invoiceDetails.setInvoice(invoiceAdd);
+                invoiceDetails.setProduct(product);
+                invoiceDetails.setQuantity(cantidad);
+                invoiceDetails.setSubTotal(product.getPrice()*cantidad);
+
+                invoiceDetailsServiceImpl.saveInvoiceDetails(invoiceDetails);
+                invoiceDetailsList.add(invoiceDetails);
+            }
+        }else{
+            InvoiceDetails invoiceDetails = new InvoiceDetails();
+            invoiceDetails.setInvoice(invoiceAdd);
+            invoiceDetails.setProduct(product);
+            invoiceDetails.setQuantity(cantidad);
+            invoiceDetails.setSubTotal(product.getPrice()*cantidad);
+
+            invoiceDetailsServiceImpl.saveInvoiceDetails(invoiceDetails);
+            invoiceDetailsList.add(invoiceDetails);
+        }
     }
 }

@@ -13,18 +13,18 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
-    private ProductServiceImpl productService;
-    private CategoryServiceImpl categoryService;
+    private ProductServiceImpl productServiceImpl;
+    private CategoryServiceImpl categoryServiceImpl;
 
     public ProductController(ProductServiceImpl productService, CategoryServiceImpl categoryService) {
         super();
-        this.productService = productService;
-        this.categoryService = categoryService;
+        this.productServiceImpl = productService;
+        this.categoryServiceImpl = categoryService;
     }
 
     @GetMapping("/show")
     public List<Product> showAllProducts(){
-        return productService.getAllProducts();
+        return productServiceImpl.getAllProducts();
     }
 
     @PostMapping("/save")
@@ -32,7 +32,7 @@ public class ProductController {
     public void saveProduct(){
         Category category = new Category();
 
-        category = categoryService.getCategoryById(1L);
+        category = categoryServiceImpl.getCategoryById(1L);
 
         Product product = new Product();
         product.setStock(3);
@@ -42,7 +42,7 @@ public class ProductController {
         product.setCategory(category);
         product.setDescription("Camisa Algodon Deportiva");
 
-        productService.saveProduct(product);
+        productServiceImpl.saveProduct(product);
 
     }
 
