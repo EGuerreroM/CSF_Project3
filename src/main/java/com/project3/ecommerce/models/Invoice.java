@@ -37,12 +37,12 @@ public class Invoice {
     private List<InvoiceDetails> invoiceDetails;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_type_id", unique = true)
+    @JoinColumn(name = "payment_type_id")
     @JsonBackReference
     private PaymentType paymentType;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "guest_id", unique = true)
+    @JoinColumn(name = "guest_id")
     @JsonBackReference
     private Guest guest;
 }

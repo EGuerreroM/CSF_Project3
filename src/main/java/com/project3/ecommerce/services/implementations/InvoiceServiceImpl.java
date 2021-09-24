@@ -22,6 +22,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceRepository.findAll();
     }
 
+    public List<Invoice> getInvoiceByGuestId(Long id){
+        return invoiceRepository.getInvoiceByGuest_Id(id);
+    }
+
     @Override
     public Invoice getInvoiceById(Long id) {
         return invoiceRepository.findById(id).get();

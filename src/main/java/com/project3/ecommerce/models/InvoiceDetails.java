@@ -26,10 +26,10 @@ public class InvoiceDetails {
     private Double subTotal;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "invoice_id", unique = true)
+    @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", unique = true)
+    @JoinColumn(name = "product_id")
     private Product product;
 }

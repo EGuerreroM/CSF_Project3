@@ -31,24 +31,25 @@ public class InvoiceController {
     }
 
     @GetMapping("/show")
-    public List<Invoice> showAllCategories(){
+    public List<Invoice> showAllInvoices(){
         return invoiceServiceImpl.getAllInvoices();
     }
 
-    @GetMapping("/saveInvoice")
+    @GetMapping("/save")
     public void saveInvoice(){
         Guest guest = new Guest();
-        guest.setName("Joey Jordison");
-        guest.setAddress("Des Moines, Iowa. EEUU");
+        guest.setName("Joey");
+        guest.setAddress("Des moines");
         guest.setEmail("joey@gmail.com");
 
         PaymentType paymentType = paymentTypeServiceImpl.getPaymentTypeById(1L);
+
         Invoice invoice = new Invoice();
         invoice.setDate(this.date);
+        invoice.setStatus("Not delivered");
+        invoice.setTotalOrder(125.50);
         invoice.setGuest(guest);
         invoice.setPaymentType(paymentType);
-        invoice.setStatus("Not delivered");
-        invoice.setTotalOrder(450.34);
 
         invoiceServiceImpl.saveInvoice(invoice);
     }
