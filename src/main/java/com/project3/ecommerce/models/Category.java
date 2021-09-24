@@ -1,5 +1,6 @@
 package com.project3.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Category {
     private String status;
 
     @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Product> products;
 
 }
