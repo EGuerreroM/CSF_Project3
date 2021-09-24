@@ -1,5 +1,6 @@
 package com.project3.ecommerce.services.implementations;
 
+import com.project3.ecommerce.models.Invoice;
 import com.project3.ecommerce.models.InvoiceDetails;
 import com.project3.ecommerce.repositories.InvoiceDetailsRepository;
 import com.project3.ecommerce.services.InvoiceDetailsService;
@@ -26,4 +27,10 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService{
     public InvoiceDetails saveInvoiceDetails(InvoiceDetails invoiceDetails) {
         return invoiceDetailsRepository.save(invoiceDetails);
     }
+
+    @Override
+    public InvoiceDetails getInvoiceDetailsById(Long id) {
+        return invoiceDetailsRepository.findById(id).get();
+    }
+
 }

@@ -1,11 +1,10 @@
 package com.project3.ecommerce.controllers;
 
+import com.project3.ecommerce.models.Category;
 import com.project3.ecommerce.models.Guest;
 import com.project3.ecommerce.models.Invoice;
 import com.project3.ecommerce.services.implementations.GuestServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +22,11 @@ public class GuestController {
     public List<Guest> showAllGuest(){
         return guestServiceImpl.getAllGuests();
     }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public Guest saveGuest(@ModelAttribute Guest guest){
+        return guestServiceImpl.saveGuest(guest);
+    }
+
 }

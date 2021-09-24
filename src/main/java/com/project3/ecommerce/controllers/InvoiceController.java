@@ -1,15 +1,11 @@
 package com.project3.ecommerce.controllers;
 
-import com.project3.ecommerce.models.Category;
-import com.project3.ecommerce.models.Guest;
-import com.project3.ecommerce.models.Invoice;
-import com.project3.ecommerce.models.PaymentType;
+import com.project3.ecommerce.models.*;
 import com.project3.ecommerce.services.implementations.GuestServiceImpl;
+import com.project3.ecommerce.services.implementations.InvoiceDetailsServiceImpl;
 import com.project3.ecommerce.services.implementations.InvoiceServiceImpl;
 import com.project3.ecommerce.services.implementations.PaymentTypeServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +15,7 @@ import java.util.List;
 public class InvoiceController {
 
     private InvoiceServiceImpl invoiceServiceImpl;
+    private InvoiceDetailsServiceImpl invoiceDetailsServiceImpl;
     private GuestServiceImpl guestServiceImpl;
     private PaymentTypeServiceImpl paymentTypeServiceImpl;
     private Date date = new Date();
@@ -35,19 +32,18 @@ public class InvoiceController {
         return invoiceServiceImpl.getAllInvoices();
     }
 
-    @GetMapping("/save")
+    @PostMapping("/save")
+    @ResponseBody
     public void saveInvoice(){
-        Guest guest = new Guest();
-        guest.setName("Joey");
-        guest.setAddress("Des moines");
-        guest.setEmail("joey@gmail.com");
-
+        Guest guest = guestServiceImpl.getGuestById(1L);
         PaymentType paymentType = paymentTypeServiceImpl.getPaymentTypeById(1L);
+        //InvoiceDetails invoiceDetails = invoiceDetailsServiceImpl.getInvoiceDetailsById(1L);
 
         Invoice invoice = new Invoice();
         invoice.setDate(this.date);
         invoice.setStatus("Not delivered");
-        invoice.setTotalOrder(125.50);
+        //invoice.setTotalOrder(invoiceDetails.getSubTotal()+(invoiceDetails.getSubTotal()*0.15));
+        invoice.setTotalOrder(210.12);
         invoice.setGuest(guest);
         invoice.setPaymentType(paymentType);
 

@@ -26,19 +26,21 @@ public class ProductController {
     public List<Product> showAllProducts(){
         return productService.getAllProducts();
     }
-    @GetMapping("/save")
+
+    @PostMapping("/save")
+    @ResponseBody
     public void saveProduct(){
         Category category = new Category();
 
         category = categoryService.getCategoryById(1L);
 
         Product product = new Product();
-        product.setStock(5);
-        product.setName("Camisa Polo");
-        product.setPrice(950.20);
+        product.setStock(3);
+        product.setName("Camisa Deportiva");
+        product.setPrice(300.33);
         product.setImage("URL IMG");
         product.setCategory(category);
-        product.setDescription("Camisa Algodon de Suiza");
+        product.setDescription("Camisa Algodon Deportiva");
 
         productService.saveProduct(product);
 
