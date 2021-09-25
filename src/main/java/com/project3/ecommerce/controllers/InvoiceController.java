@@ -2,14 +2,16 @@ package com.project3.ecommerce.controllers;
 
 import com.project3.ecommerce.models.*;
 import com.project3.ecommerce.services.implementations.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@RestController
-@RequestMapping("/cart")
+@Controller
+@RequestMapping("/invoice")
 public class InvoiceController {
 
     List<Product> productList = new ArrayList();
@@ -31,11 +33,12 @@ public class InvoiceController {
     }
 
     @GetMapping("/show")
-    public List<Invoice> showAllInvoices(){
-        return invoiceServiceImpl.getAllInvoices();
+    public String showAllInvoices(Model model){
+        model.addAttribute("invoices",invoiceServiceImpl.getAllInvoices());
+        return "views/testing.html";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save/")
     @ResponseBody
     public void saveInvoice() {
 
@@ -44,6 +47,8 @@ public class InvoiceController {
         Guest guest = guestServiceImpl.getGuestById(1L);
         PaymentType paymentType = paymentTypeServiceImpl.getPaymentTypeById(1L);
         Product product = productServiceImpl.getProductById(1L);
+
+
         int cantidad = 1;
         int posicion = 0;
 

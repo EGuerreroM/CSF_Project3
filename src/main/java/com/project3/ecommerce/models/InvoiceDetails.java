@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "InvoiceDetails")
 public class InvoiceDetails {
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_details_id", nullable = false)
     private Long Id;

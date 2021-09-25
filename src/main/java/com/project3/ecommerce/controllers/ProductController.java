@@ -56,59 +56,10 @@ public class ProductController {
 
     }
 
-//    @PutMapping("/update")
-//    public Product updateProduct(
-//            @PathVariable(value="id") Long productId,
-//            @ModelAttribute Product product){
-//        Product foundedProduct = productService.getProductById(productId);
-//        foundedProduct.setName(product.getName());
-//        foundedProduct.setStock(product.getStock());
-//        foundedProduct.setPrice(product.getPrice());
-//        foundedProduct.setImage(product.getImage());
-//
-//        return productService.saveProduct(foundedProduct)
-//    }
     @RequestMapping(path = "/")
     public String getOrderPage(Model model) throws IOException {
         List<Product> listProductOrder = productServiceImpl.getAllProducts();
         model.addAttribute("orderEntry", listProductOrder);
         return "order";
     }
-
-    @RequestMapping(path = "/pdf")
-    public ResponseEntity<?> getPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        /* Do Business Logic*/
-
-        //Order order = OrderHelper.getOrder();
-        List<Product> listProduct = productServiceImpl.getAllProducts();
-
-        /* Create HTML using Thymeleaf template Engine */
-
-//        WebContext context = new WebContext(request, response, servletContext);
-//        context.setVariable("productEntry", listProduct);
-//        String orderHtml = templateEngine.process("product", context);
-
-        /* Setup Source and target I/O streams */
-
-        ByteArrayOutputStream target = new ByteArrayOutputStream();
-
-        /*Setup converter properties. */
-        ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setBaseUri("http://localhost:8080");
-
-        /* Call convert method */
-//        HtmlConverter.convertToPdf(orderHtml, target, converterProperties);
-
-        /* extract output as bytes */
-        byte[] bytes = target.toByteArray();
-
-
-        /* Send the response as downloadable PDF */
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=order.pdf")
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(bytes);
-    }
-
 }

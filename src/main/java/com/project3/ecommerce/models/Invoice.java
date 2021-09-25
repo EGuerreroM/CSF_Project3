@@ -36,12 +36,12 @@ public class Invoice {
     @JsonManagedReference
     private List<InvoiceDetails> invoiceDetails;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_type_id")
     @JsonBackReference
     private PaymentType paymentType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id")
     @JsonBackReference
     private Guest guest;

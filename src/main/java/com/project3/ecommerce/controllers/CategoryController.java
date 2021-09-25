@@ -3,6 +3,7 @@ package com.project3.ecommerce.controllers;
 import com.project3.ecommerce.models.Category;
 import com.project3.ecommerce.services.implementations.CategoryServiceImpl;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -40,13 +41,16 @@ public class CategoryController {
     }
 
     @PutMapping("/update/{id}")
-    public Category updateCategory(
+    public String updateCategory(
             @PathVariable(value = "id") Long categoryId,
-            @ModelAttribute Category category)
+            @ModelAttribute Category category,
+            RedirectAttributes redirectAttrs)
     {
         Category foundCategory = categoryServiceImpl.getCategoryById(categoryId);
         foundCategory.setName(category.getName());
         foundCategory.setStatus(category.getStatus());
-        return categoryServiceImpl.saveCategory(foundCategory);
+        categoryServiceImpl.saveCategory(foundCategory);
+        redirectAttrs.addFlashAttribute("message", "Category was updated successfully!");
+        return "redirect:/CreateCategory";
     }
 }

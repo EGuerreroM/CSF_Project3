@@ -30,8 +30,7 @@ public class PaymentController {
     @PutMapping("/update/{id}")
     public PaymentType updateCategory(
             @PathVariable(value = "id") Long paymentId,
-            @ModelAttribute PaymentType paymentType
-    ){
+            @ModelAttribute PaymentType paymentType){
         PaymentType foundPayment = paymentTypeServiceImpl.getPaymentTypeById(paymentId);
         foundPayment.setType(paymentType.getType());
 
