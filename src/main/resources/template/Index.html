@@ -20,7 +20,7 @@
 </head>
 <body>
 <!--Navigation-->
-<header>
+<header th:fragment="header">
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
         <div class="container-fluid">
 <!--            <a class="navbar-brand" href="#">Carousel</a>-->
@@ -132,7 +132,7 @@
     </div>
 
     <!--Category section-->
-    <div class="row featurette mt-5">
+    <div class="row featurette mt-5 mb-1">
         <div class="col-md-7 ">
             <h2 class="featurette-heading ms-3 my-4">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
             <p class="lead ms-3">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
@@ -142,10 +142,9 @@
             <img th:src="@{images/category/clothes_category.jpg}" class="img-fluid" alt="clothes category image"/>
         </div>
     </div>
-    <hr class="featurette-divider my-5 mx-3">
 </main>
 <!--Footer-->
-<footer class="footer bg-dark pt-5">
+<footer class="footer bg-dark pt-5  mt-5" th:fragment="footer">
     <div class="container">
         <div class="row pb-2">
             <div class="col-md-4 col-sm-6">
