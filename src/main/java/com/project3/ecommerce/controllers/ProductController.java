@@ -84,9 +84,9 @@ public class ProductController {
 
         /* Create HTML using Thymeleaf template Engine */
 
-        WebContext context = new WebContext(request, response, servletContext);
-        context.setVariable("productEntry", listProduct);
-        String orderHtml = templateEngine.process("product", context);
+//        WebContext context = new WebContext(request, response, servletContext);
+//        context.setVariable("productEntry", listProduct);
+//        String orderHtml = templateEngine.process("product", context);
 
         /* Setup Source and target I/O streams */
 
@@ -97,7 +97,7 @@ public class ProductController {
         converterProperties.setBaseUri("http://localhost:8080");
 
         /* Call convert method */
-        HtmlConverter.convertToPdf(orderHtml, target, converterProperties);
+//        HtmlConverter.convertToPdf(orderHtml, target, converterProperties);
 
         /* extract output as bytes */
         byte[] bytes = target.toByteArray();

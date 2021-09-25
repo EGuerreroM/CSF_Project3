@@ -12,7 +12,7 @@ public class HomeController {
         return "Index";
     }
 
-    @GetMapping("/shop")
+    @GetMapping("/product")
     public String showProducts(Model model){
         String product="blackmugYeti.jpg";
         String name="Black Mug";
@@ -29,7 +29,7 @@ public class HomeController {
         return "product";
     }
 
-    @GetMapping("/catalogue")
+    @GetMapping("/shop")
     public String showCategory(Model model){
         String catalogProduct="blackmugYeti.jpg";
         String name="Black Mug";
