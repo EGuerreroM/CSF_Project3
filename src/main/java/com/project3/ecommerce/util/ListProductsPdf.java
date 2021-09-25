@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component("") // ruta donde se muestra la lista de productos en el html
-public class ListProducts extends AbstractPdfView {
+public class ListProductsPdf extends AbstractPdfView {
     @Override
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
