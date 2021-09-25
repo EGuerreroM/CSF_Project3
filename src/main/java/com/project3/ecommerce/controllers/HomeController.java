@@ -12,4 +12,47 @@ public class HomeController {
         model.addAttribute("logoImage","logo1.png");
         return "Index";
     }
+
+        @GetMapping("/shop")
+        public String showProducts(Model model){
+            String product="blackmugYeti.jpg";
+            String name="Black Mug";
+            String price="$34.00";
+            String category="Mugs";
+            String description="Material con CALIDAD DE LUXE (AAA), resistente a ralladuras," +
+                    " estropajos y lavavajillas. Apto para el microondas. Taza de color blanco " +
+                    "recubierta con barniz de calidad superior.";
+            model.addAttribute("product",product);
+            model.addAttribute("name",name);
+            model.addAttribute("price",price);
+            model.addAttribute("category",category);
+            model.addAttribute("description",description);
+            return "product";
+        }
+
+    @GetMapping("/catalogue")
+    public String showCategory(Model model){
+        String catalogProduct="blackmugYeti.jpg";
+        String name="Black Mug";
+        String price="$34.00";
+        model.addAttribute("catalogProduct",catalogProduct);
+        model.addAttribute("name",name);
+        model.addAttribute("price",price);
+        return "catalogue";
+    }
+
+    @GetMapping("/cart")
+    public String showShoppingCart(Model model){
+        String cartProduct="blackmugYeti.jpg";
+        String name="Black Mug";
+        String price="$34.00";
+        String totalPrice="$68.00";
+        model.addAttribute("cartProduct",cartProduct);
+        model.addAttribute("name",name);
+        model.addAttribute("price",price);
+        model.addAttribute("totalPrice",totalPrice);
+        return "shoppingCart";
+    }
+
+
 }
