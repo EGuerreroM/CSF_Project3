@@ -5,6 +5,7 @@ import com.project3.ecommerce.models.PaymentType;
 import com.project3.ecommerce.models.Product;
 import com.project3.ecommerce.services.UploadImageService;
 import com.project3.ecommerce.services.implementations.CategoryServiceImpl;
+import com.project3.ecommerce.services.implementations.InvoiceServiceImpl;
 import com.project3.ecommerce.services.implementations.PaymentTypeServiceImpl;
 import com.project3.ecommerce.services.implementations.ProductServiceImpl;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class DashboardController {
     private CategoryServiceImpl categoryServiceImpl;
     private PaymentTypeServiceImpl paymentTypeServiceImpl;
     private ProductServiceImpl productServiceImpl;
+    private InvoiceServiceImpl invoiceServiceImpl;
     private UploadImageService uploadImageService;
 
     public DashboardController(CategoryServiceImpl categoryServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl, UploadImageService uploadImageService) {
@@ -169,5 +171,10 @@ public class DashboardController {
         productServiceImpl.saveProduct(foundProduct);
         redirectAttrs.addFlashAttribute("message", "Product was updated successfully!");
         return "redirect:/Create/Product";
+    }
+
+    @GetMapping("/login")
+    public String showLogin(){
+        return "login";
     }
 }

@@ -40,13 +40,15 @@ public class Product {
     @Column(nullable = false)
     private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Transient
+    private int quantity = 1;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @JsonBackReference
     private Category category;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private List<InvoiceDetails> invoiceDetails;
 

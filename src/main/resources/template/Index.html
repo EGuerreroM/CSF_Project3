@@ -26,13 +26,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" th:href="home">Home</a>
+                        <a class="nav-link" aria-current="page" th:href="@{'/'}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="shop">Shop</a>
+                        <a class="nav-link" th:href="@{'/shop'}">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="cart">
+                        <a class="nav-link" th:href="@{'/cart'}">
                             <i class='bx bx-shopping-bag bx-sm' style='color:rgba(0,0,0,0.50)'></i>
                         </a>
                     </li>
@@ -56,7 +56,7 @@
         </div>
         <div class="carousel-inner ">
             <div class="carousel-item active">
-                <img th:src="@{images/banner/flaske_banner.jpg}" class="d-block w-100" alt="banner image"/>
+                <img th:src="@{images/banner/flaske_banner.jpg}" class="d-block w-100" alt="banner image" height="600px"/>
                 <div class="container">
                     <div class="carousel-caption text-end">
                         <h1 class="text-danger">Perfect for work</h1>
@@ -78,82 +78,19 @@
     <!--new products-->
     <h2 class="h3 text-center py-3">New Products</h2>
     <div class="row pt-4 mx-3">
-        <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
+        <div th:each="product: ${products}" class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
             <div class="card" style="width: 18rem;">
-                <img th:src="@{images/homeProducts/Shirt1.jpg}" class="card-img-top" alt="product image">
+                <img th:src="@{${'images/products/'+product.getImage()}}" class="card-img-top" alt="product image" height="250px">
                 <div class="card-body text-center flex-column">
-
-                    <h5>Fantasy T-shirt</h5>
-                    <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
+                    <h5 th:text="${product.getName()}"></h5>
+                    <p class="small text-muted text-uppercase mb-2" th:text="${product.getCategory().getName()}"></p>
                     <hr>
                     <h6 class="mb-3">
-                        <span class="text-danger mr-1">$12.99</span>
+                        <span class="text-danger mr-1" th:text="'$'+${product.getPrice()}"></span>
                         <span class="text-grey"><s>$36.99</s></span>
                     </h6>
-
                     <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                    <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
-            <div class="card" style="width: 18rem">
-                <img th:src="@{images/homeProducts/hodie2.jpg}" class="card-img-top img-fluid " alt="product image">
-                <div class="card-body text-center flex-column">
-
-                    <h5>Fantasy T-shirt</h5>
-                    <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
-                    <hr>
-                    <h6 class="mb-3">
-                        <span class="text-danger mr-1">$12.99</span>
-                        <span class="text-grey"><s>$36.99</s></span>
-                    </h6>
-
-                    <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                    <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
-            <div class="card" style="width: 18rem;">
-                <img th:src="@{images/homeProducts/hodie1.jpg}" class="card-img-top" alt="product image">
-                <div class="card-body text-center flex-column">
-
-                    <h5>Fantasy T-shirt</h5>
-                    <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
-                    <hr>
-                    <h6 class="mb-3">
-                        <span class="text-danger mr-1">$12.99</span>
-                        <span class="text-grey"><s>$36.99</s></span>
-                    </h6>
-
-                    <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                    <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
-            <div class="card" style="width: 18rem;">
-                <img th:src="@{images/homeProducts/denim1.jpg}" class="card-img-top" alt="product image">
-                <div class="card-body text-center flex-column">
-
-                    <h5>Fantasy T-shirt</h5>
-                    <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
-                    <hr>
-                    <h6 class="mb-3">
-                        <span class="text-danger mr-1">$12.99</span>
-                        <span class="text-grey"><s>$36.99</s></span>
-                    </h6>
-
-                    <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                    <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
+                    <a th:href="@{'/product/'+${product.getId()}}" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
                 </div>
             </div>
         </div>

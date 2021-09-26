@@ -28,7 +28,7 @@ public class Category {
     private String status;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
-            orphanRemoval = true, cascade = CascadeType.ALL)
+            orphanRemoval = true)
     @JsonManagedReference
     private List<Product> products;
 
