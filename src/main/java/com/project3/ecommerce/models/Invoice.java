@@ -32,16 +32,16 @@ public class Invoice {
     @Column(nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private List<InvoiceDetails> invoiceDetails;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_type_id")
     @JsonBackReference
     private PaymentType paymentType;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id")
     @JsonBackReference
     private Guest guest;

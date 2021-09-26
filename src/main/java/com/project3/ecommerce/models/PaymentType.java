@@ -25,7 +25,7 @@ public class PaymentType {
     @Column(nullable = false,length = 25)
     private String type;
 
-    @OneToMany(mappedBy = "paymentType", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "paymentType", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private List<Invoice> invoices;
 }

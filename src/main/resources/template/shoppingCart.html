@@ -10,10 +10,13 @@
     </h3>
     <hr class="mx-auto">
     <p>Here is your purchase</p>
+    <div th:if="${message != null}" class="container">
+        <div class="alert alert-success" th:text="${message}"></div>
+    </div>
 </div>
 
 <section >
-    <div class="container">
+    <div class="container" th:if="${message == null}">
 
         <div class="row">
             <main class="col-md-9">
@@ -22,65 +25,53 @@
                     <table class="table table-striped" id="table">
                         <tr class="table-dark">
                             <th scope="col">PRODUCT</th>
-                            <th scope="col" >QUANTITY</th>
-                            <th scope="col" >PRICE</th>
+                            <th scope="col">IMAGE</th>
+                            <th scope="col">QUANTITY</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">SUBTOTAL</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="product: ${products}">
                             <td>
-                                <div ><img th:src="@{${'/images/products/'+cartProduct}}" class="img-thumbnail"></div>
-                                <a th:text="${name}" class="title text-dark"></a>
+                                <a th:text="${product.getName()}" class="title text-dark"></a>
                             </td>
                             <td>
-                                <p>1</p>
+                                <img th:src="@{${'/images/products/'+product.getImage()}}" class="img-fluid w-10" width="100">
                             </td>
                             <td>
-                                <div>
-                                    <var th:text="${price}"></var>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div ><img th:src="@{${'/images/products/'+cartProduct}}" class="img-fluid w-10"></div>
-                                <a th:text="${name}" class="title text-dark"></a>
-                            </td>
-                            <td>
-                                <p>1</p>
+                                <p th:text="${product.getQuantity()}"></p>
                             </td>
                             <td>
                                 <div>
-                                    <var th:text="${price}"></var>
+                                    <var th:text="'$'+${product.getPrice()}"></var>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <var th:text="'$'+${product.getPrice()*product.getQuantity()}"></var>
                                 </div>
                             </td>
                         </tr>
-
                         </tbody>
                     </table>
-
-                    <div class="border-top d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="#"  class=" btn btn-dark float-md-right me-md-2"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
-                        <a href="#" class="btn btn-outline-secondary"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                    <div class="card-body border-top">
+                        <a th:href="@{'/payment'}"  class=" buy-btn float-md-right btn btn-warning"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
+                        <a th:href="@{'/'}" class="btn btn-success"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
                     </div>
                 </div> <!-- card.// -->
 
                 <div class="alert alert-success mt-3">
                     <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
                 </div>
-
             </main> <!-- col.// -->
             <aside class="col-md-3">
                 <!-- card .// -->
                 <div class="card">
                     <div class="card-body">
                         <dl class="dlist-align">
-                            <dt>Total price:</dt>
-                            <dd th:text="${price}" class="text-right"></dd>
-                        </dl>
-                        <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd th:text="${totalPrice}" class="text-right  h5"><strong></strong></dd>
+                            <dd th:text="'$'+${totalPrice}" class="text-right  h5"><strong></strong></dd>
                         </dl>
                         <hr>
                         <p class="text-center mb-3">
@@ -91,7 +82,6 @@
                 </div>  <!-- card .// -->
             </aside> <!-- col.// -->
         </div>
-
     </div> <!-- container .//  -->
 </section>
 

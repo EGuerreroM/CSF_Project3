@@ -1,31 +1,47 @@
 package com.project3.ecommerce.controllers;
 
+import com.project3.ecommerce.models.*;
+import com.project3.ecommerce.services.implementations.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Controller
 public class HomeController {
-    @GetMapping("/home")
+
+    private InvoiceServiceImpl invoiceServiceImpl;
+    private InvoiceDetailsServiceImpl invoiceDetailsServiceImpl;
+    private GuestServiceImpl guestServiceImpl;
+    private PaymentTypeServiceImpl paymentTypeServiceImpl;
+    private ProductServiceImpl productServiceImpl;
+    private Date date = new Date();
+
+    List<Product> productList = new ArrayList();
+
+    public HomeController(InvoiceServiceImpl invoiceServiceImpl, InvoiceDetailsServiceImpl invoiceDetailsServiceImpl, GuestServiceImpl guestServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl) {
+        super();
+        this.invoiceServiceImpl = invoiceServiceImpl;
+        this.invoiceDetailsServiceImpl = invoiceDetailsServiceImpl;
+        this.guestServiceImpl = guestServiceImpl;
+        this.paymentTypeServiceImpl = paymentTypeServiceImpl;
+        this.productServiceImpl = productServiceImpl;
+    }
+
+    @GetMapping("/")
     public String getIndex(Model model){
-        model.addAttribute("prodName","Gian penguin Shirt");
-        model.addAttribute("prodDescription","Super cool penguin shirt");
+        model.addAttribute("products",productServiceImpl.getAllProducts());
         return "Index";
     }
 
-    @GetMapping("/product")
-    public String showProducts(Model model){
-        String product="blackmugYeti.jpg";
-        String name="Black Mug";
-        String price="$34.00";
-        String category="Mugs";
-        String description="Material con CALIDAD DE LUXE (AAA), resistente a ralladuras," +
-                    " estropajos y lavavajillas. Apto para el microondas. Taza de color blanco " +
-                    "recubierta con barniz de calidad superior.";
-        model.addAttribute("product",product);
-        model.addAttribute("name",name);
-        model.addAttribute("price",price);
-        model.addAttribute("category",category);
-        model.addAttribute("description",description);
+    @GetMapping("/product/{id}")
+    public String productDetails(Model model,
+                               @PathVariable(value = "id") Long id){
+        model.addAttribute("product",productServiceImpl.getProductById(id));
         return "product";
     }
 
@@ -41,24 +57,86 @@ public class HomeController {
     }
 
     @GetMapping("/cart")
-    public String showShoppingCart(Model model){
-        String cartProduct="blackmugYeti.jpg";
-        String name="Black Mug";
-        String price="$34.00";
-        String totalPrice="$68.00";
-        model.addAttribute("cartProduct",cartProduct);
-        model.addAttribute("name",name);
-        model.addAttribute("price",price);
-        model.addAttribute("totalPrice",totalPrice);
+    public String showShoppingCart(Model model,
+                                   RedirectAttributes redirectAttrs){
+        double totalPrice = 0.0;
+        if (productList.isEmpty()){
+            redirectAttrs.addFlashAttribute("message", "The shopping cart is empty!");
+        }else{
+            for (int i = 0; i < productList.size(); i++){
+                totalPrice += productList.get(i).getPrice() * productList.get(i).getQuantity();
+            }
+            model.addAttribute("products",productList);
+            model.addAttribute("totalPrice",totalPrice);
+        }
         return "shoppingCart";
     }
 
-    @GetMapping("/pay")
-    public String showPaymentView(Model model){
+    @GetMapping("/addToCart/{id}")
+    public String addToCart(@PathVariable(value = "id") Long id,
+                            Model model){
+        Product foundProduct = productServiceImpl.getProductById(id);
+        if(productList.isEmpty()){
+            productList.add(foundProduct);
+        }else{
+            int pos = 0;
+            for (int i = 0; i < productList.size(); i++){
+                if (id == productList.get(i).getId()){
+                    pos = i;
+                }
+            }
+            if (id == productList.get(pos).getId()){
+                productList.get(pos).setQuantity(productList.get(pos).getQuantity() + 1);
+            }else{
+                productList.add(foundProduct);
+            }
+        }
+        return "redirect:/cart";
+    }
 
+    @GetMapping("/payment")
+    public String requestInformation(Model model){
+        double totalPrice = 0.0;
+        for (int i = 0; i < productList.size(); i++){
+            totalPrice += productList.get(i).getPrice() * productList.get(i).getQuantity();
+        }
+        model.addAttribute("guest", new Guest());
+        model.addAttribute("paymentType",new PaymentType());
+        model.addAttribute("paymentTypes", paymentTypeServiceImpl.getAllPaymentTypes());
+        model.addAttribute("products",productList);
+        model.addAttribute("totalPrice",totalPrice);
         return "payment";
     }
 
+    @PostMapping("/saveInvoice")
+    public String saveInvoice(@ModelAttribute Guest guest,
+                              @ModelAttribute PaymentType paymentType){
 
+        double totalPrice = 0.0;
+        for (int i = 0; i < productList.size(); i++){
+            totalPrice += productList.get(i).getPrice() * productList.get(i).getQuantity();
+        }
 
+        paymentTypeServiceImpl.savePaymentType(paymentType);
+
+        guestServiceImpl.saveGuest(guest);
+
+        Invoice invoice = new Invoice();
+        invoice.setDate(date);
+        invoice.setStatus("ON PROCESS");
+        invoice.setTotalOrder(totalPrice);
+        invoice.setGuest(guest);
+        invoice.setPaymentType(paymentType);
+        Invoice createdInvoice = invoiceServiceImpl.saveInvoice(invoice);
+
+        for(int i = 0; i < productList.size(); i++){
+            InvoiceDetails invoiceDetails = new InvoiceDetails();
+            invoiceDetails.setQuantity(productList.get(i).getQuantity());
+            invoiceDetails.setSubTotal(productList.get(i).getQuantity()*productList.get(i).getPrice());
+            invoiceDetails.setInvoice(createdInvoice);
+            invoiceDetails.setProduct(productList.get(i));
+            invoiceDetailsServiceImpl.saveInvoiceDetails(invoiceDetails);
+        }
+        return "success";
+    }
 }

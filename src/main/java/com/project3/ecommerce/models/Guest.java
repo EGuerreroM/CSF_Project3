@@ -31,7 +31,7 @@ public class Guest {
     @Column(nullable = false,length = 250)
     private String address;
 
-    @OneToMany(mappedBy = "guest", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "guest", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private List<Invoice> invoices;
 }
