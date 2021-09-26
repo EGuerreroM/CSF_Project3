@@ -170,4 +170,10 @@ public class DashboardController {
         redirectAttrs.addFlashAttribute("message", "Product was updated successfully!");
         return "redirect:/Create/Product";
     }
+
+    @GetMapping("/login")
+    public String showLogin(){
+
+        return "login";
+    }
 }
