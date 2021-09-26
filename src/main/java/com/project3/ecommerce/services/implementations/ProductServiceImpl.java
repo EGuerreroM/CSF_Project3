@@ -28,6 +28,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).get();
     }
 
+    public List<Product> getProductsByCategory(String category) {
+        return productRepository.getProductByCategory_Name(category);
+    }
+
     @Override
     public Product saveProduct(Product product) {
         return productRepository.save(product);

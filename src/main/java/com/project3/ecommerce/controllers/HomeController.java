@@ -45,14 +45,13 @@ public class HomeController {
         return "product";
     }
 
-    @GetMapping("/shop")
-    public String showCategory(Model model){
-        String catalogProduct="blackmugYeti.jpg";
-        String name="Black Mug";
-        String price="$34.00";
-        model.addAttribute("catalogProduct",catalogProduct);
-        model.addAttribute("name",name);
-        model.addAttribute("price",price);
+    @GetMapping("/shop/{category}")
+    public String showCategory(Model model, @PathVariable String category){
+        if (category.equals("All")){
+            model.addAttribute("products",productServiceImpl.getAllProducts());
+        }else{
+            model.addAttribute("products",productServiceImpl.getProductsByCategory(category));
+        }
         return "catalogue";
     }
 
@@ -72,11 +71,13 @@ public class HomeController {
         return "shoppingCart";
     }
 
-    @GetMapping("/addToCart/{id}")
+    @GetMapping("/addToCart/{id}/qty/{qty}")
     public String addToCart(@PathVariable(value = "id") Long id,
+                            @PathVariable(value = "qty") int qty,
                             Model model){
         Product foundProduct = productServiceImpl.getProductById(id);
         if(productList.isEmpty()){
+            foundProduct.setQuantity(qty);
             productList.add(foundProduct);
         }else{
             int pos = 0;
@@ -86,9 +87,32 @@ public class HomeController {
                 }
             }
             if (id == productList.get(pos).getId()){
-                productList.get(pos).setQuantity(productList.get(pos).getQuantity() + 1);
+                productList.get(pos).setQuantity(productList.get(pos).getQuantity() + qty);
             }else{
+                foundProduct.setQuantity(qty);
                 productList.add(foundProduct);
+            }
+        }
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/removeFromCart/{id}/qty/{qty}")
+    public String removeFromCart(@PathVariable(value = "id") Long id,
+                            @PathVariable(value = "qty") int qty,
+                            Model model){
+        if(!productList.isEmpty()){
+            int pos = 0;
+            for (int i = 0; i < productList.size(); i++){
+                if (id == productList.get(i).getId()){
+                    pos = i;
+                }
+            }
+            if (id == productList.get(pos).getId()){
+                if (productList.get(pos).getQuantity() == 1){
+                    productList.remove(productList.get(pos));
+                }else{
+                    productList.get(pos).setQuantity(productList.get(pos).getQuantity() - qty);
+                }
             }
         }
         return "redirect:/cart";

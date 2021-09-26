@@ -2,93 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="index::head"></head>
 <body>
+<!-- Header -->
 <header th:replace="index::header"></header>
+<div class="container text-center mt-5 py-5">
+    <h3>
+        Newest products
+    </h3>
+    <hr class="mx-auto">
+</div>
 <main>
-    <br>
     <div class="container-fluid mx-3 pt-5 mt-5">
         <div class="row ">
-            <h4 class="h3">CLOTHING</h4>
-        </div>
-        <div class="row  ">
-            <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
-                <div class="card" style="width: 18rem">
-                    <img th:src="@{images/homeProducts/hodie2.jpg}" class="card-img-top img-fluid " alt="product image">
+            <div th:each="product: ${products}" class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img th:src="@{${'/products/'+product.getImage()}}" class="card-img-top" alt="product image" height="250px">
                     <div class="card-body text-center flex-column">
-
-                        <h5>Fantasy T-shirt</h5>
-                        <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
+                        <h5 th:text="${product.getName()}"></h5>
+                        <p class="small text-muted text-uppercase mb-2" th:text="${product.getCategory().getName()}"></p>
                         <hr>
                         <h6 class="mb-3">
-                            <span class="text-danger mr-1">$12.99</span>
-                            <span class="text-grey"><s>$36.99</s></span>
+                            <span class="text-danger mr-1" th:text="'$'+${product.getPrice()}"></span>
                         </h6>
-
-                        <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                        <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
-                <div class="card" style="width: 18rem">
-                    <img th:src="@{images/homeProducts/hodie2.jpg}" class="card-img-top img-fluid " alt="product image">
-                    <div class="card-body text-center flex-column">
-
-                        <h5>Fantasy T-shirt</h5>
-                        <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
-                        <hr>
-                        <h6 class="mb-3">
-                            <span class="text-danger mr-1">$12.99</span>
-                            <span class="text-grey"><s>$36.99</s></span>
-                        </h6>
-
-                        <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                        <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row ">
-            <h4 class="h3">MUGS</h4>
-        </div>
-        <div class="row  ">
-            <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
-                <div class="card" style="width: 18rem">
-                    <img th:src="@{images/homeProducts/hodie2.jpg}" class="card-img-top img-fluid " alt="product image">
-                    <div class="card-body text-center flex-column">
-
-                        <h5>Fantasy T-shirt</h5>
-                        <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
-                        <hr>
-                        <h6 class="mb-3">
-                            <span class="text-danger mr-1">$12.99</span>
-                            <span class="text-grey"><s>$36.99</s></span>
-                        </h6>
-
-                        <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                        <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
-                <div class="card" style="width: 18rem">
-                    <img th:src="@{images/homeProducts/hodie2.jpg}" class="card-img-top img-fluid " alt="product image">
-                    <div class="card-body text-center flex-column">
-
-                        <h5>Fantasy T-shirt</h5>
-                        <p class="small text-muted text-uppercase mb-2">Shirts</p>
-
-                        <hr>
-                        <h6 class="mb-3">
-                            <span class="text-danger mr-1">$12.99</span>
-                            <span class="text-grey"><s>$36.99</s></span>
-                        </h6>
-
-                        <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
-                        <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
+                        <a th:href="@{'/addToCart/'+${product.getId()}}" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
+                        <a th:href="@{'/product/'+${product.getId()}}" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
                     </div>
                 </div>
             </div>

@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head th:replace="index::head"></head>
 <body>
+<!-- Header -->
 <header th:replace="index::header"></header>
-<br><br>
+<div class="container text-center mt-5 py-5">
+    <h3>
+        Product details
+    </h3>
+    <hr class="mx-auto">
+</div>
 <main>
     <div class="container mb-5">
-        <h4 class="h3 mt-5 pt-5">Product details</h4>
-        <br>
         <section class="my-5>">
             <div class="row">
                 <div class="col-md-5 mb-4 mb-md-0">
                     <div class="mdb-lightbox" data-pswp-uid="1">
-                        <img class="img-fluid w-100" th:src="@{${'/images/products/'+product.getImage()}}" alt="product image"/>
+                        <img class="img-fluid w-100" th:src="@{${'/products/'+product.getImage()}}" alt="product image"/>
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -29,25 +32,25 @@
                         <table class="table table-sm table-borderless mb-0">
                             <tbody>
                             <tr>
-                                <th class="pl-0 w-25" scope="row"><strong>Model</strong></th>
-                                <td>Shirt 5407X</td>
+                                <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+                                <td th:text="${product.getCategory().getName()}"></td>
                             </tr>
                             <tr>
-                                <th class="pl-0 w-25" scope="row"><strong>Color</strong></th>
-                                <td>Blue</td>
+                                <th class="pl-0 w-25" scope="row"><strong>Stock</strong></th>
+                                <td th:text="${product.getStock()}"></td>
                             </tr>
                             <tr>
                                 <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
-                                <td>USA, Europe</td>
+                                <td>Worldwide</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <hr>
-                    <a  class="btn btn-danger btn-md mr-1 mb-2" href="pay" role="button">Buy now</a>
-                    <a th:href="@{'/addToCart/'+${product.getId()}}" class="btn btn-outline-secondary btn-md mx-3 mb-2" role="button">Add to cart</a>
+                    <a th:href="@{'/addToCart/'+${product.getId()}+'/qty/1'}" class="btn btn-success btn-lg btn-md mx-3 mb-2" role="button">Add to cart</a>
                 </div>
             </div>
+            <hr class="mx-auto">
         </section>
     </div>
 </main>
