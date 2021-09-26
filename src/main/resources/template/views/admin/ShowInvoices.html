@@ -19,64 +19,54 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Invoices</h1>
         <p class="mb-4">Select an option.</p>
-        <!--                <div class="container">-->
-        <!--                    @if (session()->has('message'))-->
-        <!--                    <div class="alert alert-success">-->
-        <!--                        {{session()->get('message')}}-->
-        <!--                    </div>-->
-        <!--                    @endif-->
-        <!--                </div>-->
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="mb-0 font-weight-bold text-primary">Showing all invoices</h6>
+            <h6 class="mb-0 font-weight-bold text-primary">Invoices</h6>
             <br>
             <div class="d-sm-flex align-items-left justify-content">
-              <a th:href="@{/Show/Products/(format=pdf)}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i
+              <a th:href="@{/Show/Invoices/(format=pdf)}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i
                       class="fas fa-download fa-sm text-white-50" ></i> Generate PDF</a>
-              <a th:href="@{/Show/Products/(format=xlsx)}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" target="_blank"><i
+              <a th:href="@{/Show/Invoices/(format=xlsx)}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" target="_blank"><i
                       class="fas fa-download fa-sm text-white-50"></i> Generate Excel</a>
             </div>
           </div>
-          <!--                    <div class="alert alert-warning">-->
-          <!--                        No hay categorias registradas en el sistema-->
-          <!--                    </div>-->
-          <!-- Page Heading -->
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Stock</th>
-                  <th>Image</th>
-                  <th>Category</th>
-                  <th>Options</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Total Order </th>
+                  <th>Guest Name</th>
+                  <th>Guest Email</th>
+                  <th>Details</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Stock</th>
-                  <th>Image</th>
-                  <th>Category</th>
-                  <th>Options</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Total Order </th>
+                  <th>Guest Name</th>
+                  <th>Guest Email</th>
+                  <th>Details</th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr th:each="product: ${products}">
-                  <td th:text="${product.getId()}"></td>
-                  <td th:text="${product.getName()}"></td>
-                  <td th:text="'$'+${product.getPrice()}"></td>
-                  <td th:text="${product.getStock()}"></td>
-                  <td th:text="${product.getImage()}"></td>
-                  <td th:text="${product.getCategory().getName()}"></td>
+                <tr th:each="invoice: ${invoices}">
+                  <td th:text="${invoice.getId()}"></td>
+                  <td th:text="${invoice.getDate()}"></td>
+                  <td th:text="${invoice.getStatus()}"></td>
+                  <td th:text="${invoice.getTotalOrder()}"></td>
+                  <td th:text="${invoice.getGuest().getName()}"></td>
+                  <td th:text="${invoice.getGuest().getEmail()}"></td>
                   <td>
-                    <a th:href="@{'/Edit/Product/'+${product.getId()}}" class="btn btn-warning btn-circle">
+                    <a th:href="@{'/Show/Invoice/Detail/'+${invoice.getId()}}" class="btn btn-warning btn-circle">
                       <i class="fas fa-edit"></i>
                     </a>
                   </td>

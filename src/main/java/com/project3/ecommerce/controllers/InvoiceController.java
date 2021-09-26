@@ -60,7 +60,7 @@ public class InvoiceController {
         invoice.setPaymentType(paymentType);
         Invoice invoiceAdd = invoiceServiceImpl.saveInvoice(invoice);
 
-        //variables de interfaz
+        //variables de interface
         int idp = 1;
 
         if(invoiceDetailsList.size()>0){

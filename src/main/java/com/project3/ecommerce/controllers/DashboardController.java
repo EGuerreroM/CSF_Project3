@@ -4,10 +4,7 @@ import com.project3.ecommerce.models.Category;
 import com.project3.ecommerce.models.PaymentType;
 import com.project3.ecommerce.models.Product;
 import com.project3.ecommerce.services.UploadImageService;
-import com.project3.ecommerce.services.implementations.CategoryServiceImpl;
-import com.project3.ecommerce.services.implementations.InvoiceServiceImpl;
-import com.project3.ecommerce.services.implementations.PaymentTypeServiceImpl;
-import com.project3.ecommerce.services.implementations.ProductServiceImpl;
+import com.project3.ecommerce.services.implementations.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +20,16 @@ public class DashboardController {
     private PaymentTypeServiceImpl paymentTypeServiceImpl;
     private ProductServiceImpl productServiceImpl;
     private InvoiceServiceImpl invoiceServiceImpl;
+    private InvoiceDetailsServiceImpl invoiceDetailsServiceImpl;
     private UploadImageService uploadImageService;
 
-    public DashboardController(CategoryServiceImpl categoryServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl, UploadImageService uploadImageService) {
+    public DashboardController(CategoryServiceImpl categoryServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl, InvoiceServiceImpl invoiceServiceImpl, InvoiceDetailsServiceImpl invoiceDetailsServiceImpl, UploadImageService uploadImageService) {
         super();
         this.categoryServiceImpl = categoryServiceImpl;
         this.paymentTypeServiceImpl = paymentTypeServiceImpl;
         this.productServiceImpl = productServiceImpl;
+        this.invoiceServiceImpl = invoiceServiceImpl;
+        this.invoiceDetailsServiceImpl = invoiceDetailsServiceImpl;
         this.uploadImageService = uploadImageService;
     }
 
@@ -145,6 +145,19 @@ public class DashboardController {
     public String showProducts(Model model){
         model.addAttribute("products",productServiceImpl.getAllProducts());
         return "views/admin/ShowProducts";
+    }
+
+    @GetMapping("/Show/Invoices")
+    public String showInvoices(Model model, Long id){
+        model.addAttribute("invoiceDetails", invoiceDetailsServiceImpl.getAllInvoiceDetails());
+        model.addAttribute("invoices", invoiceServiceImpl.getAllInvoices());
+        return "views/admin/ShowInvoices";
+    }
+
+    @GetMapping("Show/Invoice/Detail/{id}")
+    public String showInvoiceDetails(@PathVariable(value = "id") Long id, Model model){
+        model.addAttribute("invoices", invoiceServiceImpl.getInvoiceById(id));
+        return "views/admin/ShowInvoiceDetail";
     }
 
     @GetMapping("/Edit/Product/{id}")
