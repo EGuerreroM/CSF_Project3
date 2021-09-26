@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<<<<<<< HEAD
 <head th:replace="index::head"></head>
 <body>
 <header th:replace="index::header"></header>
@@ -17,17 +18,192 @@
                 <input type="number" value="1">
                 <button class="btn btn-dark px-10 my-2">Add to Cart</button>
                 <a class=" my-2" href="">Add to Cart</a>
+=======
+
+<head th:replace="index::head"></head>
+<body>
+<header th:replace="index::header"></header>
+<main>
+    <div class="container mb-5">
+        <h4 class="h3 mt-5 pt-5">Shop</h4>
+        <section class="my-5>">
+            <div class="row">
+                <div class="col-md-5 mb-4 mb-md-0">
+                   <div class="mdb-lightbox" data-pswp-uid="1">
+                       <img class="img-fluid w-100" th:src="@{images/homeProducts/denim1.jpg}" alt="product image"/>
+                   </div>
+               </div>
+                <div class="col-md-7">
+                    <h5 class="text-left">Product name</h5>
+                    <p class="mb-2 text-muted text-uppercase small">Category</p>
+                    <p>
+                        <span class="mr-1">
+                            <strong>$79.99</strong>
+                        </span>
+                    </p>
+                    <p class="pt-1">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At consequuntur cum cupiditate deleniti deserunt eligendi expedita harum, magni, molestiae perspiciatis quaerat qui rem repellat similique tenetur ullam vitae voluptatum. Ut.
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless mb-0">
+                            <tbody>
+                            <tr>
+                                <th class="pl-0 w-25" scope="row"><strong>Model</strong></th>
+                                <td>Shirt 5407X</td>
+                            </tr>
+                            <tr>
+                                <th class="pl-0 w-25" scope="row"><strong>Color</strong></th>
+                                <td>Blue</td>
+                            </tr>
+                            <tr>
+                                <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
+                                <td>USA, Europe</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="table-responsive mb-2">
+                        <table class="table table-sm table-borderless">
+                            <tbody>
+                            <tr>
+                                <td class="pl-0 pb-0 w-25">Quantity</td>
+                                <td class="pb-0">Select size</td>
+                            </tr>
+                            <tr>
+                                <td class="pl-0">
+                                    <div class="def-number-input number-input safari_only mb-0">
+                                        <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="mt-1">
+                                        <div class="form-check form-check-inline pl-0">
+                                            <input type="radio" class="form-check-input" id="small" name="materialExampleRadios" checked>
+                                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                                   for="small">Small</label>
+                                        </div>
+                                        <div class="form-check form-check-inline pl-0">
+                                            <input type="radio" class="form-check-input" id="medium" name="materialExampleRadios">
+                                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                                   for="medium">Medium</label>
+                                        </div>
+                                        <div class="form-check form-check-inline pl-0">
+                                            <input type="radio" class="form-check-input" id="large" name="materialExampleRadios">
+                                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                                   for="large">Large</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a  class="btn btn-danger btn-md mr-1 mb-2" href="pay" role="button">Buy now</a>
+                    <a  class="btn btn-outline-secondary btn-md mx-3 mb-2" href="#" role="button">Add to cart</a>
+                </div>
+>>>>>>> 702b9ab1a5e3c7187aee8176bb3f08c74518ee40
             </div>
+        </section>
 
-            <h4 class="mt-3 mb-5">Product Details</h4>
-            <span th:text="${description}"></span>
+        <section>
+            <hr class="featurette-divider">
+            <h4 class="h3 text-center mt-5">Related Products</h4>
+            <div class="row pt-4 mx-3">
+                <div class="col-lg-3 col-md-3 col-sm-6 px-auto mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <img th:src="@{images/homeProducts/Shirt1.jpg}" class="card-img-top" alt="product image">
+                        <div class="card-body text-center flex-column">
 
-        </div>
+                            <h5>Fantasy T-shirt</h5>
+                            <p class="small text-muted text-uppercase mb-2">Shirts</p>
 
+                            <hr>
+                            <h6 class="mb-3">
+                                <span class="text-danger mr-1">$12.99</span>
+                                <span class="text-grey"><s>$36.99</s></span>
+                            </h6>
+
+                            <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
+                            <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 px-auto mb-4">
+                    <div class="card" style="width: 18rem">
+                        <img th:src="@{images/homeProducts/hodie2.jpg}" class="card-img-top img-fluid " alt="product image">
+                        <div class="card-body text-center flex-column">
+
+                            <h5>Fantasy T-shirt</h5>
+                            <p class="small text-muted text-uppercase mb-2">Shirts</p>
+
+                            <hr>
+                            <h6 class="mb-3">
+                                <span class="text-danger mr-1">$12.99</span>
+                                <span class="text-grey"><s>$36.99</s></span>
+                            </h6>
+
+                            <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
+                            <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 px-auto mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <img th:src="@{images/homeProducts/hodie1.jpg}" class="card-img-top" alt="product image">
+                        <div class="card-body text-center flex-column">
+
+                            <h5>Fantasy T-shirt</h5>
+                            <p class="small text-muted text-uppercase mb-2">Shirts</p>
+
+                            <hr>
+                            <h6 class="mb-3">
+                                <span class="text-danger mr-1">$12.99</span>
+                                <span class="text-grey"><s>$36.99</s></span>
+                            </h6>
+
+                            <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
+                            <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 px-auto mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <img th:src="@{images/homeProducts/hodie1.jpg}" class="card-img-top" alt="product image">
+                        <div class="card-body text-center flex-column">
+
+                            <h5>Fantasy T-shirt</h5>
+                            <p class="small text-muted text-uppercase mb-2">Shirts</p>
+
+                            <hr>
+                            <h6 class="mb-3">
+                                <span class="text-danger mr-1">$12.99</span>
+                                <span class="text-grey"><s>$36.99</s></span>
+                            </h6>
+
+                            <a href="cart" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
+                            <a href="product" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+<<<<<<< HEAD
 </section>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
 <footer th:replace="index::footer"></footer>
+=======
+</main>
+
+<footer th:replace="index::footer"></footer>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+>>>>>>> 702b9ab1a5e3c7187aee8176bb3f08c74518ee40
 </body>
 </html>
