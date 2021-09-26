@@ -64,9 +64,9 @@
                         <h6 class="mb-0 font-weight-bold text-primary">Registered products</h6>
                         <br>
                         <div class="d-sm-flex align-items-left justify-content">
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i
-                                    class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                            <a th:href="@{/Show/Products/(format=pdf)}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i
+                                    class="fas fa-download fa-sm text-white-50" ></i> Generate PDF</a>
+                            <a th:href="@{/Show/Products/(format=xlsx)}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" target="_blank"><i
                                     class="fas fa-download fa-sm text-white-50"></i> Generate Excel</a>
                         </div>
                     </div>

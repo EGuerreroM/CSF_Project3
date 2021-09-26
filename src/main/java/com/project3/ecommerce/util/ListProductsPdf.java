@@ -13,13 +13,15 @@ import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
-@Component("") // ruta donde se muestra la lista de productos en el html
+@Component("views/admin/ShowProducts") // ruta donde se muestra la lista de productos en el html
 public class ListProductsPdf extends AbstractPdfView {
     @Override
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         @SuppressWarnings("unchecked")
         List<Product> productList = (List<Product>) model.get("products"); //key de la ruta
+
+        response.setHeader("Content-Disposition", "attachment; filename=\"Official-Product-List.pdf\"");
 
         //fonts
         Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD,20, Color.BLACK);
@@ -28,6 +30,7 @@ public class ListProductsPdf extends AbstractPdfView {
 
         document.setPageSize(PageSize.LETTER.rotate());
         document.setMargins(-20,-20,30,20);
+
         document.open();
 
         PdfPCell cell = null;

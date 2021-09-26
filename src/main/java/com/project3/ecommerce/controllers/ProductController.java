@@ -62,4 +62,5 @@ public class ProductController {
         model.addAttribute("orderEntry", listProductOrder);
         return "order";
     }
+
 }
