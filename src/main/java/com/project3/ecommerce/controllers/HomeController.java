@@ -126,7 +126,6 @@ public class HomeController {
         }
         model.addAttribute("guest", new Guest());
         model.addAttribute("paymentType",new PaymentType());
-        model.addAttribute("paymentTypes", paymentTypeServiceImpl.getAllPaymentTypes());
         model.addAttribute("products",productList);
         model.addAttribute("totalPrice",totalPrice);
         return "payment";

@@ -94,18 +94,6 @@
                                             <a th:href="@{'/Edit/Category/'+${category.getId()}}" class="btn btn-warning btn-circle">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a th:if="${category.getStatus() == 'Active'}" href="" class="btn btn-danger btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                <span class="text">Deactivate</span>
-                                            </a>
-                                            <a th:if="${category.getStatus() == 'Inactive'}" href="" class="btn btn-success btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-check"></i>
-                                                        </span>
-                                                <span class="text">Activate</span>
-                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
