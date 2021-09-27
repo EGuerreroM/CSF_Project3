@@ -98,7 +98,7 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link"  th:href="${'/show/users'}" >
                 <i class="fas fa-user"></i>
                 <span>Users</span></a>
         </li>
@@ -131,8 +131,8 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <i class="fas fa-user"></i>
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee </span>
-                        <a href="" class="btn btn-danger">Logout</a>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small" > </span>
+                        <a th:href="@{'/user/logout'}" class="btn btn-danger">Logout</a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">

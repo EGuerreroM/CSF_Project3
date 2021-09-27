@@ -33,4 +33,7 @@ public class Administrator {
     @Column(nullable = false)
     private String status;
 
+    @Column(nullable = false)
+    private String code;
+
 }
