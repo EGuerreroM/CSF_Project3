@@ -23,7 +23,7 @@
                         <h6 class="mb-3">
                             <span class="text-danger mr-1" th:text="'$'+${product.getPrice()}"></span>
                         </h6>
-                        <a th:href="@{'/addToCart/'+${product.getId()}}" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
+                        <a th:href="@{'/addToCart/'+${product.getId()+'/qty/1'}}" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
                         <a th:href="@{'/product/'+${product.getId()}}" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
                     </div>
                 </div>
