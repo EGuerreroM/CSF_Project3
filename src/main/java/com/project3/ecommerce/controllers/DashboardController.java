@@ -1,8 +1,10 @@
 package com.project3.ecommerce.controllers;
 
+import com.project3.ecommerce.models.Administrator;
 import com.project3.ecommerce.models.Category;
 import com.project3.ecommerce.models.PaymentType;
 import com.project3.ecommerce.models.Product;
+import com.project3.ecommerce.security.SessionSingleton;
 import com.project3.ecommerce.services.UploadImageService;
 import com.project3.ecommerce.services.implementations.*;
 import org.springframework.stereotype.Controller;
@@ -22,8 +24,9 @@ public class DashboardController {
     private InvoiceServiceImpl invoiceServiceImpl;
     private InvoiceDetailsServiceImpl invoiceDetailsServiceImpl;
     private UploadImageService uploadImageService;
+    private AdministratorServiceImplementation administratorServiceImplementation;
 
-    public DashboardController(CategoryServiceImpl categoryServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl, InvoiceServiceImpl invoiceServiceImpl, InvoiceDetailsServiceImpl invoiceDetailsServiceImpl, UploadImageService uploadImageService) {
+    public DashboardController(CategoryServiceImpl categoryServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl, InvoiceServiceImpl invoiceServiceImpl, InvoiceDetailsServiceImpl invoiceDetailsServiceImpl, UploadImageService uploadImageService, AdministratorServiceImplementation administratorServiceImplementation) {
         super();
         this.categoryServiceImpl = categoryServiceImpl;
         this.paymentTypeServiceImpl = paymentTypeServiceImpl;
@@ -31,15 +34,16 @@ public class DashboardController {
         this.invoiceServiceImpl = invoiceServiceImpl;
         this.invoiceDetailsServiceImpl = invoiceDetailsServiceImpl;
         this.uploadImageService = uploadImageService;
+        this.administratorServiceImplementation = administratorServiceImplementation;
     }
 
     @GetMapping("/Dashboard")
-    public String dashboard(Model model){
+    public String dashboard(Model model) {
+        model.addAttribute("administrator", SessionSingleton.getSessionAccount());
         return "views/admin/dashboard";
     }
 
     //CATEGORIES
-
     @GetMapping("/Show/Categories")
     public String showCategories(Model model){
         model.addAttribute("categories",categoryServiceImpl.getAllCategories());
@@ -187,7 +191,20 @@ public class DashboardController {
     }
 
     @GetMapping("/login")
-    public String showLogin(){
+    public String showLogin(Model model) {
+        model.addAttribute("administrator", new Administrator());
         return "login";
+    }
+
+    @GetMapping("/register")
+    public String showRegister(Model model) {
+        model.addAttribute("administrator", new Administrator());
+        return "register";
+    }
+
+    @GetMapping("/show/users")
+    public String showUsers(Model model) {
+        model.addAttribute("accounts", administratorServiceImplementation.findAllAdministrator());
+        return "views/admin/Showaccounts";
     }
 }

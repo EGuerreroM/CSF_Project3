@@ -19,7 +19,7 @@
 <header th:fragment="header">
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
         <div class="container-fluid">
-            <img th:src="@{images/logo1.png}" th:alt="not found"/>
+            <img th:src="@{images/logo1.png}" alt="logo"/>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,13 +29,8 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" th:href="@{'/'}">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" th:href="@{'/shop/All'}" id="navbarLightDropdownMenuLin"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
-                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="'/shop/All'">All Products</a></li>
-                            <li><a class="dropdown-item" th:href="'/shop/shirts'">Shirts</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{'/shop/All'}">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{'/cart'}">
@@ -51,7 +46,6 @@
         </div>
     </nav>
 </header>
-
 <main>
     <!--Banner section-->
     <div id="myCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
@@ -65,8 +59,8 @@
                 <img th:src="@{images/banner/flaske_banner.jpg}" class="d-block w-100" alt="banner image" height="600px"/>
                 <div class="container">
                     <div class="carousel-caption text-end">
-                        <h1 class="text-danger">Perfect for work</h1>
-                        <p class="fw-bolder text-dark">make an impact with your company <br>and increase your sustainable visibility</p>
+                        <h1 class="text-danger">This is our e-commerce</h1>
+                        <p class="fw-bolder text-dark">Here you can find everything you need<br> and get it directly to your home</p>
                         <p><a class="btn btn-lg btn-danger" th:href="@{'/shop/All'}">Shop Now</a></p>
                     </div>
                 </div>
@@ -83,6 +77,9 @@
     </div>
     <!--new products-->
     <h2 class="h3 text-center py-3">New Products</h2>
+    <div th:if="${message != null}" class="container">
+        <div class="alert alert-success" th:text="${message}"></div>
+    </div>
     <div class="row pt-4 mx-3">
         <div th:each="product: ${products}" class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
             <div class="card" style="width: 18rem;">
@@ -107,7 +104,7 @@
         <div class="col-md-7 mt-4">
             <h2 class="featurette-heading  my-4">New Collection. <span class="text-muted">It’ll blow your mind.</span></h2>
             <p class="lead ">Crafter for performance and styled with personality.</p>
-            <p class="text-start"><a class="btn btn-lg btn-danger" th:href="@{'shop/shirts'}">Shop Now</a></p>
+            <p class="text-start"><a class="btn btn-lg btn-danger" th:href="@{'/shop/All'}">Shop Now</a></p>
         </div>
         <div class="col-md-5">
             <img th:src="@{images/category/clothes_category.jpg}" class="img-fluid" alt="clothes category image" height="300px"/>

@@ -19,17 +19,19 @@ public class HomeController {
     private GuestServiceImpl guestServiceImpl;
     private PaymentTypeServiceImpl paymentTypeServiceImpl;
     private ProductServiceImpl productServiceImpl;
+    private CategoryServiceImpl categoryServiceImpl;
     private Date date = new Date();
 
     List<Product> productList = new ArrayList();
 
-    public HomeController(InvoiceServiceImpl invoiceServiceImpl, InvoiceDetailsServiceImpl invoiceDetailsServiceImpl, GuestServiceImpl guestServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl) {
+    public HomeController(InvoiceServiceImpl invoiceServiceImpl, InvoiceDetailsServiceImpl invoiceDetailsServiceImpl, GuestServiceImpl guestServiceImpl, PaymentTypeServiceImpl paymentTypeServiceImpl, ProductServiceImpl productServiceImpl, CategoryServiceImpl categoryServiceImpl) {
         super();
         this.invoiceServiceImpl = invoiceServiceImpl;
         this.invoiceDetailsServiceImpl = invoiceDetailsServiceImpl;
         this.guestServiceImpl = guestServiceImpl;
         this.paymentTypeServiceImpl = paymentTypeServiceImpl;
         this.productServiceImpl = productServiceImpl;
+        this.categoryServiceImpl = categoryServiceImpl;
     }
 
     @GetMapping("/")
@@ -52,6 +54,7 @@ public class HomeController {
         }else{
             model.addAttribute("products",productServiceImpl.getProductsByCategory(category));
         }
+        model.addAttribute("categories",categoryServiceImpl.getAllCategories());
         return "catalogue";
     }
 
@@ -133,7 +136,8 @@ public class HomeController {
 
     @PostMapping("/saveInvoice")
     public String saveInvoice(@ModelAttribute Guest guest,
-                              @ModelAttribute PaymentType paymentType){
+                              @ModelAttribute PaymentType paymentType,
+                              RedirectAttributes redirectAttrs){
 
         double totalPrice = 0.0;
         for (int i = 0; i < productList.size(); i++){
@@ -160,6 +164,8 @@ public class HomeController {
             invoiceDetails.setProduct(productList.get(i));
             invoiceDetailsServiceImpl.saveInvoiceDetails(invoiceDetails);
         }
-        return "success";
+        productList.removeAll(productList);
+        redirectAttrs.addFlashAttribute("message", "You have successfully purchased!, Thank you for preferring us");
+        return "redirect:/";
     }
 }

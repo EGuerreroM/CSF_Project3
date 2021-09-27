@@ -9,6 +9,15 @@
         Newest products
     </h3>
     <hr class="mx-auto">
+    <h5 >Categories:</h5>
+    <div class="row">
+        <div class="col-sm-12 align-content-center">
+            <a class="align-content-center btn btn-warning border-danger"
+               th:each="category: ${categories}"
+               th:href="@{'/shop/'+${category.getName()}}"
+               th:text="${category.getName()}"></a><p> </p>
+        </div>
+    </div>
 </div>
 <main>
     <div class="container-fluid mx-3 pt-5 mt-5">
