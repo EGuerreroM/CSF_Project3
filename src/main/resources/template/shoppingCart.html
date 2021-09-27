@@ -37,10 +37,22 @@
                                 <a th:text="${product.getName()}" class="title text-dark"></a>
                             </td>
                             <td>
-                                <img th:src="@{${'/images/products/'+product.getImage()}}" class="img-fluid w-10" width="100">
+                                <img th:src="@{${'/products/'+product.getImage()}}" class="img-fluid w-10" width="100">
                             </td>
                             <td>
-                                <p th:text="${product.getQuantity()}"></p>
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4" style="padding-left: 20px; padding-top: 10px">
+                                            <a th:href="@{'/removeFromCart/'+${product.getId()}+'/qty/1'}"><i class="fas fa-minus"></i></a>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 20px; padding-top: 10px">
+                                            <p th:text="${product.getQuantity()}"></p>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 20px; padding-top: 10px">
+                                            <a th:href="@{'/addToCart/'+${product.getId()}+'/qty/1'}"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <div>
@@ -56,8 +68,8 @@
                         </tbody>
                     </table>
                     <div class="card-body border-top">
-                        <a th:href="@{'/payment'}"  class=" buy-btn float-md-right btn btn-warning"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
                         <a th:href="@{'/'}" class="btn btn-success"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                        <a th:href="@{'/payment'}" th:if="${totalPrice} != null" class=" buy-btn float-md-right btn btn-warning"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
                     </div>
                 </div> <!-- card.// -->
 
@@ -69,7 +81,7 @@
                 <!-- card .// -->
                 <div class="card">
                     <div class="card-body">
-                        <dl class="dlist-align">
+                        <dl class="dlist-align" th:if="${totalPrice} != null">
                             <dt>Total:</dt>
                             <dd th:text="'$'+${totalPrice}" class="text-right  h5"><strong></strong></dd>
                         </dl>

@@ -131,10 +131,8 @@
                         <div class="col-md-6" th:object="${paymentType}">
                             <label class="form-label">Payment Type</label>
                             <select th:field="*{type}" class="form-control" required>
-                                <option value="" disabled selected>Select an option</option>
-                                <option th:each="types : ${paymentTypes}"
-                                        th:text="${types.getType()}"
-                                        th:value="${types.getType()}"></option>
+                                <<option value="Debit Card">Debit Card</option>
+                                <option value="Credit Card">Credit Card</option>
                             </select>
                         </div>
                     </div>

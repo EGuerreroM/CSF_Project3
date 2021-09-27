@@ -41,7 +41,7 @@ public class Product {
     private String status;
 
     @Transient
-    private int quantity = 1;
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
