@@ -19,7 +19,6 @@
 <header th:fragment="header">
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
         <div class="container-fluid">
-<!--            <a class="navbar-brand" href="#">Carousel</a>-->
             <img th:src="@{images/logo1.png}" th:alt="not found"/>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,8 +29,13 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" th:href="@{'/'}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{'/shop/All'}">Shop</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" th:href="@{'/shop/All'}" id="navbarLightDropdownMenuLin"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <li><a class="dropdown-item" th:href="'/shop/All'">All Products</a></li>
+                            <li><a class="dropdown-item" th:href="'/shop/shirts'">Shirts</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{'/cart'}">
@@ -98,23 +102,22 @@
     </div>
 
     <!--Category section-->
-    <div class="row featurette mt-5 mb-1">
-        <div class="col-md-7 ">
-            <h2 class="featurette-heading ms-3 my-4">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-            <p class="lead ms-3">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
-            <p class="text-end"><a class="btn btn-lg btn-danger" th:href="shop">Shop Now</a></p>
+    <div class="row featurette mt-5 mb-1 mx-3">
+
+        <div class="col-md-7 mt-4">
+            <h2 class="featurette-heading  my-4">New Collection. <span class="text-muted">It’ll blow your mind.</span></h2>
+            <p class="lead ">Crafter for performance and styled with personality.</p>
+            <p class="text-start"><a class="btn btn-lg btn-danger" th:href="@{'shop/shirts'}">Shop Now</a></p>
         </div>
         <div class="col-md-5">
-            <img th:src="@{images/category/clothes_category.jpg}" class="img-fluid" alt="clothes category image"/>
+            <img th:src="@{images/category/clothes_category.jpg}" class="img-fluid" alt="clothes category image" height="300px"/>
         </div>
     </div>
 </main>
 <!--Footer-->
-
-
 <footer class=" page-footer mt-4" th:fragment="footer">
     <div class="mx-4">
-        <hr class="featurette-divider">
+        <hr class="featurette-divider ">
         <div class="row">
             <div class="col-2">
                 <h5>Section</h5>
@@ -137,8 +140,6 @@
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
                 </ul>
             </div>
-
-
 
             <div class="col-4 offset-1">
                 <form>
