@@ -22,40 +22,42 @@ public class TestProduct {
     private ProductRepository repo;
     private CategoryServiceImpl categoryImpl;
     private ProductServiceImpl serviceImpl;
+
     @Test
-    public void testSaveCategory() {
-        Product product = new Product();
-
-        Category category = new Category();
-
-        //category = categoryImpl.getCategoryById(1L);
-
-        category.setName("asdaa");
-        category.setStatus("Actuve");
-
-
-        product.setCategory(category);
-        product.setPrice(559.99);
-        product.setImage("URL");
-        product.setStock(2);
-        product.setDescription("test desc");
-        product.setName("test");
-        product.setStatus("Active");
-
-
-        Product savedProduct = repo.save(product);
-        //Category savedCategory = serviceImpl.saveCategory(category);
-
-        Assertions.assertThat(savedProduct).isNotNull();
-        Assertions.assertThat(savedProduct.getId()).isGreaterThan(0);
-    }
-    @Test
-    public void testListCategory(){
+    public void testListProduct(){
         Iterable<Product> products = repo.findAll();
         Assertions.assertThat(products).hasSizeGreaterThan(0);
         for (Product product : products) {
             System.out.println(product);
         }
     }
+
+//    public void testSaveProduct() {
+//        Product product = new Product();
+//
+//        Category category = new Category();
+//
+//        //category = categoryImpl.getCategoryById(1L);
+//
+//        category.setName("asdaa");
+//        category.setStatus("Actuve");
+//
+//
+//        product.setCategory(category);
+//        product.setPrice(559.99);
+//        product.setImage("URL");
+//        product.setStock(2);
+//        product.setDescription("test desc");
+//        product.setName("test");
+//        product.setStatus("Active");
+//
+//
+//        Product savedProduct = repo.save(product);
+//        //Category savedCategory = serviceImpl.saveCategory(category);
+//
+//        Assertions.assertThat(savedProduct).isNotNull();
+//        Assertions.assertThat(savedProduct.getId()).isGreaterThan(0);
+//    }
+
 
 }

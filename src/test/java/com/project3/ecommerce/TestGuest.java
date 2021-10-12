@@ -21,7 +21,7 @@ public class TestGuest {
     private GuestRepository repo;
     private GuestServiceImpl serviceImpl;
     @Test
-    public void testSaveCategory() {
+    public void testSaveGuest() {
         Guest guest = new Guest();
 
         guest.setName("test");
@@ -35,7 +35,7 @@ public class TestGuest {
         Assertions.assertThat(savedGuest.getId()).isGreaterThan(0);
     }
     @Test
-    public void testListCategory(){
+    public void testListGuest(){
         Iterable<Guest> guests = repo.findAll();
         Assertions.assertThat(guests).hasSizeGreaterThan(0);
         for (Guest guest : guests) {

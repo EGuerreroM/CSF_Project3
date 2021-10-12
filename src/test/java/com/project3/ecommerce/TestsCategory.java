@@ -56,7 +56,7 @@ public class TestsCategory {
     }
     @Test
     public void testDeleteCategory(){
-        Integer catId = 2;
+        Integer catId = 4;
         Long categoryId = Long.valueOf(catId);
 
         repo.deleteById(categoryId);
